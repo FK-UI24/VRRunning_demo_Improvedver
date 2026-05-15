@@ -840,7 +840,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PUSH ENTER
+  m_text: push enter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6f70baaf5a8f19349809cc44c1899620, type: 2}
   m_sharedMaterial: {fileID: -3272797843664933940, guid: 6f70baaf5a8f19349809cc44c1899620, type: 2}
@@ -873,7 +873,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 3
+  m_fontStyle: 19
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
