@@ -14,6 +14,15 @@ This repository provides a demo and improved version of my undergraduate researc
 - Flask：通信サーバー
 - Unity：VR表示・全体制御
 
+## Tech Stack
+- Unity(VRアプリケーション開発)
+- C#(Unityスクリプト)
+- Python(センサーで取得した情報の処理・計算)
+- Flask(通信サーバー構築)
+- Raspberry Pi 5(ハード制御)
+- Meta Quest2(HMD)
+- PLATEAU(3D都市モデル)
+
 ## What This Repository Contains
 - Unityプロジェクト
 - Flaskサーバーコード
@@ -31,9 +40,9 @@ This repository provides a demo and improved version of my undergraduate researc
 - センサー(ロータリーエンコーダー/MPU6050)が必要
 - センサー固定具(3Dプリンターで制作したもの)が必要
 
-本リポジトリでは主に、「システムの構造・処理の流れ・実装内容の確認」を目的としてます。
+本リポジトリでは主に、**「システムの構造・処理の流れ・実装内容の確認」**を目的としてます。
 
 ## Original Research
 本リポジトリの内容は学部の研究に基づいています。
-オリジナル版(詳細など記述)は以下をご参照ください。
+オリジナル版(詳細な説明など)は以下をご参照ください。
 [準備中]
