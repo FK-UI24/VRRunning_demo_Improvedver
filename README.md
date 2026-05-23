@@ -40,7 +40,7 @@ This repository provides a demo and improved version of my undergraduate researc
 - センサー(ロータリーエンコーダー/MPU6050)が必要
 - センサー固定具(3Dプリンターで制作したもの)が必要
 
-本リポジトリでは主に、**「システムの構造・処理の流れ・実装内容の確認」**を目的としてます。
+本リポジトリでは主に、「システムの構造・処理の流れ・実装内容の確認」を目的としてます。
 
 ## Original Research
 本リポジトリの内容は学部の研究に基づいています。
