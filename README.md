@@ -45,4 +45,4 @@ This repository provides a demo and improved version of my undergraduate researc
 ## Original Research
 本リポジトリの内容は学部の研究に基づいています。<br>
 オリジナル版(詳細な説明など)は以下をご参照ください。<br>
-[準備中]
+https://github.com/FK-UI24/VRRunning_Original
