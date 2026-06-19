@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
-    AudioSource SE;
+    private AudioSource SE;
 
     [SerializeField] private string nextScene;
 

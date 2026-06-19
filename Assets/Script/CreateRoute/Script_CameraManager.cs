@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 //ルート作成画面でカメラの移動を行うスクリプト
 //カメラに直接配置する
@@ -53,15 +54,22 @@ public class Script_CameraManager : MonoBehaviour
 
         //カメラのRigidbodyを格納する
         cameraRb = GetComponent<Rigidbody>();
+
     }
 
     private void Update()
     {
+        //UIの上なら反応しないようにする
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+
         //ズームを行う関数
         HandleZoom();
 
         //移動を行う関数
         HandleDrag();
+
+        //ズーム位置のリセットをする関数
+        ResetZoom();
     }
 
     //マウスのホイールスクロールで拡大縮小を行う関数
@@ -144,6 +152,16 @@ public class Script_CameraManager : MonoBehaviour
 
         }
 
+    }
+
+    //ホイールボタンを押すとズーム距離だけリセットする処理
+    private void ResetZoom()
+    {
+        if (Input.GetMouseButtonDown(2))
+        {
+            gameObject.transform.position =
+                new Vector3(gameObject.transform.position.x, initialPositionY, gameObject.transform.position.z);
+        }
     }
 
 }
