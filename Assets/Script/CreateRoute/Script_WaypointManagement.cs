@@ -1,14 +1,22 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Script_WaypointManagement : MonoBehaviour
 {
     [Header("ウェイポイントのオブジェクト")]
     [SerializeField] private GameObject wayPointObject;
+
+    [Header("合計距離表示テキスト")]
+    [SerializeField] private GameObject totalDistanceText;
+
+    [Header("距離計算のスケール係数")]
+    [SerializeField] private float distanceScale;
 
     //ウェイポイント間を繋ぐLineRendere用変数
     private LineRenderer lineRenderer;
@@ -24,7 +32,10 @@ public class Script_WaypointManagement : MonoBehaviour
     private List<Vector3> clickedPositions = new List<Vector3>();
 
     //ウェイポイント設置時のSE用変数
-    private AudioSource SE;
+    private AudioSource[] SE;
+
+    //合計距離用変数
+    private float totalDistance = 0f;
 
     //Startよりも前にオブジェクトのの追加などを行う
     private void Awake()
@@ -77,7 +88,10 @@ public class Script_WaypointManagement : MonoBehaviour
         if(!File.Exists(RouteJsonFile))using (File.Create(RouteJsonFile)) { }
 
         //SEを格納する
-        SE = GetComponent<AudioSource>();
+        SE = GetComponents<AudioSource>();
+
+        //合計距離表示テキストを初期化する
+        totalDistanceText.GetComponentInChildren<TMP_Text>().text = "0";
 
     }
 
@@ -118,7 +132,7 @@ public class Script_WaypointManagement : MonoBehaviour
             clickPosition.y += 2.5f;
 
             //選択したときのSEを鳴らす
-            SE.Play();
+            SE[0].Play();
 
             //インスペクター側から設定したオブジェクトを置く
             GameObject waypoint = Instantiate(wayPointObject, clickPosition, Quaternion.identity);
@@ -144,16 +158,36 @@ public class Script_WaypointManagement : MonoBehaviour
         {
             //2点未満なら線なし
             lineRenderer.positionCount = 0;
+
+            //合計距離と距離表示をリセットする
+            totalDistance = 0f;
+            totalDistanceText.GetComponentInChildren<TMP_Text>().text = "0";
+
             return;
         }
 
         //線を書くのに使う点の数はウェイポイントの数-1であるので、リストのインデックス数と同じである
         lineRenderer.positionCount = wayPoints.Count;
+        
+        //毎回計算しなおすので合計をリセットする
+        totalDistance = 0f;
+
         for (int i = 0; i < wayPoints.Count; i++)
         {
             //SetPosition(何番目の点を設定するか,設定する座標)
             lineRenderer.SetPosition(i, wayPoints[i].transform.position);
+
+            if (i > 0)
+            {
+                totalDistance += Vector3.Distance(
+                    wayPoints[i - 1].transform.position,
+                    wayPoints[i].transform.position
+                ) * distanceScale;
+            }
         }
+
+        //合計距離表示を更新する
+        totalDistanceText.GetComponentInChildren<TMP_Text>().text = $"{totalDistance:F1} ";
     }
 
     //リストの内容を指定したJsonファイルに保存する関数
@@ -172,6 +206,7 @@ public class Script_WaypointManagement : MonoBehaviour
         for (int i = 0; i < clickedPositions.Count; i++)
         {
             Vector3 v = clickedPositions[i];
+            sb.Append($"  \"({v.x},{v.y},{v.z})\"");
 
             //最後の要素以外にはコンマと改行を追加してJSON配列の区切りにする
             if (i < clickedPositions.Count - 1)
@@ -189,7 +224,20 @@ public class Script_WaypointManagement : MonoBehaviour
         //ロード関数を作って１番最初にJSONファイルの中身を取り出しておかないとリセットになる
         File.WriteAllText(RouteJsonFile, sb.ToString());
 
+
         Debug.Log("リストを" + RouteJsonFile + "に保存した");
+
+        StartCoroutine(SEtoChange());
+
+    }
+
+    //画面遷移時に音を鳴らしてから遷移する関数
+    private IEnumerator SEtoChange()
+    {
+        //選択したときのSEを鳴らす
+        SE[1].Play();
+        yield return new WaitForSeconds(SE[1].clip.length);
+        SceneManager.LoadScene("Ready");
     }
 
 
@@ -213,6 +261,9 @@ public class Script_WaypointManagement : MonoBehaviour
             GameObject waypoint = wayPoints[wayPoints.Count - 1];
             wayPoints.RemoveAt(wayPoints.Count - 1);
             Destroy(waypoint);
+
+            //選択したときのSEを鳴らす
+            SE[1].Play();
 
             //線の更新
             UpdateLineRenderer();
