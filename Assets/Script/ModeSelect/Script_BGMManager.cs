@@ -22,7 +22,7 @@ public class Script_BGMManager : MonoBehaviour
     private AudioSource BGM;
 
     //インスペクター側でBGMを格納する用配列変数
-    [Header("「モード選択」と「ルート選択」で流すBGM")]
+    [Header("「モード選択」と「ルート選択」と「詳細設定」と「免責」で流すBGM")]
     [SerializeField] private AudioClip[] BGMList;
 
     //直前にいたシーンの名前を保存する用変数
@@ -79,10 +79,10 @@ public class Script_BGMManager : MonoBehaviour
         string nextSceneName = scene.name;
 
         //遷移先のシーンが「ModeSelect」か「CreateRoute」だったら
-        if(nextSceneName== "ModeSelect"||nextSceneName== "CreateRoute")
+        if (nextSceneName == "ModeSelect" || nextSceneName == "CreateRoute" || nextSceneName == "Ready")
         {
             //直前にいたシーンが「ModeSelect」で、かつ遷移先が「CreateRoute」であるか
-            if (currentSceneName == "ModeSelect" && nextSceneName == "CreateRoute")
+            if (currentSceneName == "ModeSelect" && nextSceneName == "CreateRoute" || nextSceneName == "Ready")
             {
                 //なにもしないぜ！寿司もつくらないぜ！BGMも特に変えないぜ！
             }

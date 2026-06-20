@@ -26,7 +26,7 @@ public class Script_WaypointManagement : MonoBehaviour
 
     //ウェイポイントオブジェクトを格納する用リスト
     //座標を保存するリストと対応させるために使用する
-    private List<GameObject> wayPoints = new List<GameObject>();
+    public List<GameObject> wayPoints = new List<GameObject>();
 
     //一時的に座標を保存する用のリスト
     private List<Vector3> clickedPositions = new List<Vector3>();
@@ -35,7 +35,7 @@ public class Script_WaypointManagement : MonoBehaviour
     private AudioSource[] SE;
 
     //合計距離用変数
-    private float totalDistance = 0f;
+    public float totalDistance = 0f;
 
     //Startよりも前にオブジェクトのの追加などを行う
     private void Awake()
