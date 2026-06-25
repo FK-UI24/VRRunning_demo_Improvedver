@@ -35,7 +35,7 @@ public class Script_WaypointManagement : MonoBehaviour
     private AudioSource[] SE;
 
     //合計距離用変数
-    public float totalDistance = 0f;
+    public static float totalDistance = 0f;
 
     //Startよりも前にオブジェクトのの追加などを行う
     private void Awake()
