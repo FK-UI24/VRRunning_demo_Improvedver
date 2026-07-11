@@ -73,32 +73,45 @@ public class Script_BGMManager : MonoBehaviour
     //Unityがシーン切り替わり時に読み込まれるように設定を上記でしているので引数は自動で入れる
     ///第一引数は新しく読み込まれたシーンのデータ
     ///第二引数はそのシーンをどういう方法で開いたかの方法。今回は使っていないがUnityのがちがち規約的に必要
-    private void OnSceneLoaded(Scene scene,LoadSceneMode mode)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //新しく読み込まれた遷移先のシーン名を格納する
+        // 遷移先のシーン名を取得
         string nextSceneName = scene.name;
 
-        //遷移先のシーンが「ModeSelect」か「CreateRoute」だったら
-        if (nextSceneName == "ModeSelect" || nextSceneName == "CreateRoute" || nextSceneName == "Ready")
+        // 現在いるシーンがBGM管理対象かどうか
+        bool currentManagedScene =
+            currentSceneName == "ModeSelect" ||
+            currentSceneName == "CreateRoute" ||
+            currentSceneName == "Ready";
+
+        // 遷移先シーンがBGM管理対象かどうか
+        bool nextManagedScene =
+            nextSceneName == "ModeSelect" ||
+            nextSceneName == "CreateRoute" ||
+            nextSceneName == "Ready";
+
+        // 遷移先がBGM管理対象シーンの場合
+        if (nextManagedScene)
         {
-            //直前にいたシーンが「ModeSelect」で、かつ遷移先が「CreateRoute」であるか
-            if (currentSceneName == "ModeSelect" && nextSceneName == "CreateRoute" || nextSceneName == "Ready")
-            {
-                //なにもしないぜ！寿司もつくらないぜ！BGMも特に変えないぜ！
-            }
-            //「Title」や、ランニング画面からのリタイアなどでシーンを戻ったりした場合
-            else
+            // 管理対象外シーンから入ってきた場合のみ、
+            // 新しいBGMをランダムで選んで再生する
+            if (!currentManagedScene)
             {
                 PlayRandomBGM();
             }
+
+            // 管理対象シーン同士の移動なら何もしない
+            // （現在流れているBGMをそのまま維持）
         }
-        //管理対象の「ModeSelect」か「CreateRoute」以外のシーンに戦死した場合
+        // 管理対象外シーンへ移動した場合
         else
         {
+            // BGMを停止する
             BGM.Stop();
         }
 
-        //次にシーンが切り替わるときに備えて、今の遷移先シーン名を「直前にいたシーン名」にする
+        // 次回のシーン遷移判定用に、
+        // 今回の遷移先シーン名を記録しておく
         currentSceneName = nextSceneName;
     }
 
