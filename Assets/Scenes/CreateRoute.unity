@@ -334,37 +334,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1 &98728714
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 98728715}
-  m_Layer: 0
-  m_Name: Line
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &98728715
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98728714}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &183296046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,7 +1513,7 @@ Transform:
   m_GameObject: {fileID: 614170518}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -897, y: 1, z: -830}
+  m_LocalPosition: {x: -897, y: 2.9, z: -830}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -253938,6 +253907,7 @@ MonoBehaviour:
   wayPointObject: {fileID: 2939956822458412137, guid: 7b8ed59d2cddf93449c7229465e44bcc, type: 3}
   totalDistanceText: {fileID: 183296046}
   distanceScale: 0.28
+  wayPoints: []
 --- !u!4 &1688455361
 Transform:
   m_ObjectHideFlags: 0
@@ -254797,4 +254767,3 @@ SceneRoots:
   - {fileID: 614170521}
   - {fileID: 1159301576}
   - {fileID: 1688455361}
-  - {fileID: 98728715}
